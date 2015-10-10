@@ -1,5 +1,7 @@
 package data
 
+import top.Ord
+
 case class Book(
   author: String,
   title: String,
@@ -7,9 +9,17 @@ case class Book(
   isImported: Boolean
   )
 
+object Book {
+
+  implicit val bookOrd: Ord[Book] = new Ord[Book] {
+    def lt(a: Book, b: Book) = a.basePrice < b.basePrice
+  }
+
+}
+
 object Data {
 
-  val books = Seq(
+  val books = List(
     Book("odersky", "scala prog", 100, false),
     Book("odersky", "apple", 100, false),
     Book("odersky", "complexity", 400, false),
